@@ -1,7 +1,8 @@
 init2.k <-
-function(reference,response,L,K,t2,m2,previousz,previousclust, previous.alpha, previous.beta){
+function(reference,response,L,K,t2,m2,previousz,previousclust, previous.alpha, previous.beta,mnr){
 x = reference
 y = response
+maxnr = mnr
 n1<-dim(y)[1]
 n2<-dim(x)[1]
 if (n1 != n2) stop("number of observations does not coincide for x and y")
@@ -134,7 +135,8 @@ for (k in 1:K) {psim[iter,k]  <- sum(z[,k])/n}
 for(k in c(big.cluster,K)){
 theta<-numeric(q+tau)
 # print(k)
-nrthreshold <- log(10^(-10));maxnr = 10
+nrthreshold <- log(10^(-10));
+#maxnr = 10
 sc <- nrthreshold + 1
 #theta[1:q] <- 2*runif(q)-4# the next elements are the a_{jk}
 for (j in 1:q){
@@ -268,7 +270,8 @@ z<-z/rowSums(z)
 
 for(k in 1:K){
 # print(k)
-nrthreshold <- log(10^(-10));maxnr = 10
+nrthreshold <- log(10^(-10));
+#maxnr = 10
 sc <- nrthreshold + 1
 theta[1:q] <- alpha[iter,,k]# the next elements are the a_{jk}
 theta[(q+1):(q+tau)] <- beta[iter, k,]# the last element is b_{k}
@@ -376,6 +379,7 @@ print("end of initialization")
 ss<- 1:m
 mm<-max(ll)
 max.index<- ss[ll==mm]
+max.index<-max.index[1]
 results<-list(psim[max.index,],alpha[max.index,,], beta[max.index,,],ll[max.index])
 names(results)<-c("psim","alpha,","beta","ll")
 return(results)

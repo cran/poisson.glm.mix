@@ -1,7 +1,8 @@
 init1.2.jk.j <-
-function(reference,response,L,K,m1,m2,t1,t2,model){
+function(reference,response,L,K,m1,m2,t1,t2,model,mnr){
 x = reference
 y = response
+maxnr = mnr
 n1<-dim(y)[1]
 n2<-dim(x)[1]
 if (n1 != n2) stop("number of observations does not coincide for x and y")
@@ -83,7 +84,7 @@ respj<-y[,index[j]:(index[j]+L[j]-1)]
 if (L[j]==1)dim(respj)<-c(length(respj),1)
 print(c("Sub-Small EM for the initializion of condition ",j))
 condsj = c(L[j])
-start<-init1.1.jk.j(reference = x,response = respj,L = condsj,K = n.comp,t1 = n.init,model = 1,m1=m1)
+start<-init1.1.jk.j(reference = x,response = respj,L = condsj,K = n.comp,t1 = n.init,model = 1,m1=m1,mnr = maxnr)
 alpha[iter,j,]<-start$alpha
 beta[iter,j,,]<-start$beta
 }
@@ -160,7 +161,8 @@ for(j in 1:q){
 #st[2:(tau+1)]<-beta[iter,j,k,]
 #run<-glm(yy[,j]~x,family=poisson, start = st, weights = z[,k])
 
-nrthreshold <- log(10^(-10));maxnr = 3
+nrthreshold <- log(10^(-10));
+#maxnr = 3
 sc <- nrthreshold + 1
 theta[1] <- alpha[iter,j,k]# alpha[j,]'s
 theta[2:(tau+1)] <- beta[iter, j,k,]# beta_{j}
@@ -301,7 +303,7 @@ respj<-y[,index[j]:(index[j]+L[j]-1)]
 if (L[j]==1)dim(respj)<-c(length(respj),1)
 print(c("Sub-Small EM for the initializion of condition ",j))
 condsj = c(L[j])
-start<-init1.1.jk.j(reference = x,response = respj,L = condsj,K = n.comp,t1 = n.init,model = 2,m1=m1)
+start<-init1.1.jk.j(reference = x,response = respj,L = condsj,K = n.comp,t1 = n.init,model = 2,m1=m1,mnr = maxnr)
 alpha[iter,j,]<-start$alpha
 beta[iter,j,]<-start$beta
 delta[iter,j]<-start$delta
@@ -377,7 +379,7 @@ theta[(K+3):(K+2+tau)] <- beta[iter, j,]# beta_{j}
 theta1<-theta
 #iter1<-0
 # Main Loop of N-R iterations
-maxnr=10
+#maxnr=10
 metritis = 1
 while (sc > nrthreshold&metritis<maxnr ) {
 metritis = metritis + 1

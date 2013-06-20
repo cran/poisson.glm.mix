@@ -37,7 +37,7 @@ y <- sim.data[,-1]
 
 rr<-pois.glm.mix(reference=x, response=y, L=c(3,2,1), m=1, 
                   max.iter=1000, Kmin=2, Kmax= 4, 
-                  m1=3, m2=3, t1=3, t2=3, msplit=4, tsplit=3)
+                  m1=3, m2=3, t1=3, t2=3, msplit=4, tsplit=3,mnr = 5)
 
 # note: useR should specify larger values for Kmax, m1, m2, t1,
 #	 t2, msplit and tsplit for a complete analysis.

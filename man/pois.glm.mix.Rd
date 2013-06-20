@@ -11,7 +11,7 @@ This function is the main function of the package. User has only to call it by s
 }
 \usage{
 pois.glm.mix(reference, response, L, m, max.iter, Kmin, Kmax, 
-             m1, m2, t1, t2, msplit, tsplit)
+             m1, m2, t1, t2, msplit, tsplit,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,6 +53,9 @@ pois.glm.mix(reference, response, L, m, max.iter, Kmin, Kmax,
 }
   \item{tsplit}{positive integer denoting the number of different runs for each call of the splitting small EM used by Initialization 2 (\code{init2.jk.j} or \code{init2.k}).
 %%     ~~Describe \code{tsplit} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \details{
@@ -105,7 +108,7 @@ y <- sim.data[,-1]
 
 rr<-pois.glm.mix(reference=x, response=y, L=c(3,2,1), m=1, 
                   max.iter=1000, Kmin=2, Kmax= 4, 
-                  m1=3, m2=3, t1=3, t2=3, msplit=3, tsplit=3)
+                  m1=3, m2=3, t1=3, t2=3, msplit=3, tsplit=3,mnr = 5)
 
 # note: useR should specify larger values for Kmax, m1, m2, 
 #	t1, t2, msplit and tsplit for a complete analysis.

@@ -1,7 +1,8 @@
 init1.k <-
-function(reference,response,L,K,t2,m2){
+function(reference,response,L,K,t2,m2,mnr){
 x = reference
 y = response
+maxnr = mnr
 n1<-dim(y)[1]
 n2<-dim(x)[1]
 if (n1 != n2) stop("number of observations does not coincide for x and y")
@@ -155,7 +156,8 @@ z<-z/rowSums(z)
 
 for(k in 1:K){
 # print(k)
-nrthreshold <- log(10^(-10));maxnr = 10
+nrthreshold <- log(10^(-10));
+#maxnr = 10
 sc <- nrthreshold + 1
 theta[1:q] <- alpha[iter,,k]# the next elements are the a_{jk}
 theta[(q+1):(q+tau)] <- beta[iter, k,]# the last element is b_{k}

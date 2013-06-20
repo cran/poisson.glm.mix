@@ -69,7 +69,7 @@ n.comp<-K
 
 if (start.type==1){
 print("small-em with random initialization scheme")
-start<-init1.k(reference = x,response = y,L = conds,K = n.comp,t2,m2)
+start<-init1.k(reference = x,response = y,L = conds,K = n.comp,t2,m2,mnr = maxnr)
 }else{
 print("small-em with splitting initialization scheme")
 
@@ -78,7 +78,7 @@ previousclust <- prev.clust
 previous.alpha<-prev.alpha
 previous.beta<-prev.beta
 
-start<-init2.k(reference=x,response=y,L=conds,K=n.comp,t2,m2,previousz,previousclust, previous.alpha, previous.beta)
+start<-init2.k(reference=x,response=y,L=conds,K=n.comp,t2,m2,previousz,previousclust, previous.alpha, previous.beta,mnr = maxnr)
 
 }
 psim[iter,]<-start$psim

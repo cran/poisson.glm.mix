@@ -11,7 +11,7 @@ This function applies a random splitting small EM initialization scheme (Initial
 }
 \usage{
 init2.jk.j(reference, response, L, K, tsplit, model, msplit, 
-           previousz, previousclust, previous.alpha, previous.beta)
+           previousz, previousclust, previous.alpha, previous.beta,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -47,6 +47,9 @@ init2.jk.j(reference, response, L, K, tsplit, model, msplit,
 }
   \item{previous.beta}{numeric array of dimension \eqn{J\times (K-1)\times T} (if \code{model = 1}) or \eqn{J\times T} (if \code{model = 2}) containing the matrix of the ML estimates of the regression coefficients \eqn{\beta_{jk\tau}} or \eqn{\beta_{j\tau}}, \eqn{j=1,\ldots,J}, \eqn{k=1,\ldots,K-1}, \eqn{\tau=1,\ldots,T}, based on the previous run of EM algorithm. 
 %%     ~~Describe \code{previous.beta} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \value{
@@ -85,12 +88,12 @@ y <- sim.data[,-1]
 
 # At first a 2 component mixture is fitted using parameterization $m=1$.
 run.previous<-bjkmodel(reference=x, response=y, L=c(3,2,1), m=100, K=2, 
-                       nr=-10*log(10), maxnr=10, m1=3, m2=3, t1=1, t2=2, 
+                       nr=-10*log(10), maxnr=5, m1=2, m2=2, t1=1, t2=2, 
                        msplit, tsplit, prev.z, prev.clust, start.type=1, 
                        prev.alpha, prev.beta)
 ## Then the estimated clusters and parameters are used to initialize a 
 ##   3 component mixture using Initialization 2. The number of different
-##   runs is set to $tsplit=3$ with each one of them using msplit = 5 
+##   runs is set to $tsplit=3$ with each one of them using msplit = 2 
 ##   em iterations. 
 q <- 3
 tau <- 1
@@ -100,8 +103,8 @@ ml <- length(run.previous$psim)/(nc - 1)
 alpha <- array(run.previous$alpha[ml, , ], dim = c(q, nc - 1))
 beta <- array(run.previous$beta[ml, , , ], dim = c(q, nc - 1, tau))
 clust <- run.previous$clust
-run<-init2.jk.j(reference=x, response=y, L=c(3,2,1), K=nc, tsplit=3, 
-                model=1, msplit=5, previousz=z, previousclust=clust,
-                previous.alpha=alpha, previous.beta=beta)
+run<-init2.jk.j(reference=x, response=y, L=c(3,2,1), K=nc, tsplit=2, 
+                model=1, msplit=2, previousz=z, previousclust=clust,
+                previous.alpha=alpha, previous.beta=beta,mnr = 5)
 # note: useR should specify larger values for msplit and tsplit for a complete analysis.
 }

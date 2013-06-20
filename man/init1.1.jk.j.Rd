@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 This function is the first step of the two-step small initialization procedure (Initialization 1), used for the parameterizations \eqn{m=1} (\eqn{\beta_{jk}}) or \eqn{m=2} (\eqn{\beta_{j}}). For each condition \eqn{j=1,\ldots,J}, a small EM is run in order to find some good starting values for the \eqn{K}-component mixtures: \eqn{\sum_{k=1}^{K}p_j\prod_{\ell=1}^{L_j}f(y_{ij\ell})}, independently for each \eqn{j=1,\ldots,J}. These values are used in order to initialize the second step (\code{init1.2.jk.j}) of the small EM algorithm for fitting the overall mixture \eqn{\sum_{k=1}^{K}\pi_j\prod_{j=1}^{J}\prod_{\ell=1}^{L_j}f(y_{ij\ell})}.}
 \usage{
-init1.1.jk.j(reference, response, L, K, t1, model, m1)
+init1.1.jk.j(reference, response, L, K, t1, model, m1,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,9 @@ init1.1.jk.j(reference, response, L, K, t1, model, m1)
 }
   \item{m1}{positive integer denoting the number of iterations for each run.
 %%     ~~Describe \code{m1} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \value{
@@ -70,7 +73,7 @@ y <- sim.data[,-1]
 ## initialize the component specific parameters 
 ##                   for a 2 component mixture
 start1 <- init1.1.jk.j(reference=x, response=y, L=c(3,2,1), 
-                       K=2, t1=3, model=1, m1=5)
+                       K=2, t1=3, model=1, m1=5,mnr = 5)
 summary(start1)
 
 ############################################################
@@ -78,7 +81,7 @@ summary(start1)
 ############################################################
 
 start1 <- init1.1.jk.j(reference=x, response=y, L=c(3,2,1), 
-                       K=2, t1=3, model=2, m1=5)
+                       K=2, t1=3, model=2, m1=5,mnr = 5)
 summary(start1)
 
 }

@@ -1,9 +1,10 @@
 pois.glm.mix <-
-function(reference,response,L,m,max.iter,Kmin,Kmax,m1,m2,t1,t2, msplit,tsplit){
+function(reference,response,L,m,max.iter,Kmin,Kmax,m1,m2,t1,t2, msplit,tsplit,mnr){
 
 
 x<-reference
 y<-response
+maxnr = mnr
 if (is.vector(x)==T) x<-array(x,dim=c(length(x),1))
 if (is.vector(y)==T) y<-array(y,dim=c(length(y),1))
 if (is.data.frame(x)==T){x<-as.matrix(x);colnames(x)=NULL}
@@ -53,7 +54,7 @@ print(paste("fitting the b_jk parameterization"))#
 print(paste("***************************************"))#
 print(paste("*                K =", nc,"               *"))#
 print(paste("***************************************"))#
-run<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,m1,m2,t1,t2, msplit,tsplit,prev.z,prev.clust,start.type=1)#
+run<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z,prev.clust,start.type=1)#
 icl<-run$icl#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
@@ -66,7 +67,7 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,,],dim=c(q,nc-1,tau))#
 clust<-run$clust#
-run<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#
@@ -130,7 +131,7 @@ print(paste("fitting the b_j parameterization"))#
 print(paste("***************************************"))#
 print(paste("*                K =", nc,"               *"))#
 print(paste("***************************************"))#
-run<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,m1,m2,t1,t2, msplit,tsplit,prev.z,prev.clust,start.type=1)#
+run<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z,prev.clust,start.type=1)#
 icl<-run$icl#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
@@ -143,7 +144,7 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,],dim=c(q,tau))#
 clust<-run$clust#
-run<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#
@@ -207,7 +208,7 @@ print(paste("fitting the b_k parameterization"))#
 print(paste("***************************************"))#
 print(paste("*                K =", nc,"               *"))#
 print(paste("***************************************"))#
-run<-bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,t2,m2,prev.z,prev.clust,start.type=1,prev.alpha,prev.beta)#
+run<-bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,t2,m2,prev.z,prev.clust,start.type=1,prev.alpha,prev.beta)#
 icl<-run$icl#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
@@ -220,7 +221,7 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,],dim=c(nc-1,tau))#
 clust<-run$clust#
-run<-bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=10,tsplit,msplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run<-bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,tsplit,msplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#

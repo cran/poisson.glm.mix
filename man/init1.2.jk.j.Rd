@@ -10,7 +10,7 @@
 This function is the second step of the two-step small initialization procedure (Initialization 1), used for parameterizations \eqn{m=1} or \eqn{m=2}. At first, \code{init1.1.jk.j} is called for each condition \eqn{j=1,\ldots,J}. The values obtained from the first step are used for initializing the second step of the small EM algorithm for fitting the overall mixture \eqn{\sum_{k=1}^{K}\pi_j\prod_{j=1}^{J}\prod_{\ell=1}^{L_j}f(y_{ij\ell})}. The selected values from the second step are the ones that initialize the EM algorithm (\code{bjkmodel} or \code{bjmodel}), when \eqn{K=K_{min}}.
 }
 \usage{
-init1.2.jk.j(reference, response, L, K, m1, m2, t1, t2, model)
+init1.2.jk.j(reference, response, L, K, m1, m2, t1, t2, model,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,6 +40,9 @@ init1.2.jk.j(reference, response, L, K, m1, m2, t1, t2, model)
 }
   \item{model}{binary variable denoting the parameterization of the model: 1 for \eqn{\beta_{jk}} and 2 for \eqn{\beta_{j}} parameterization.
 %%     ~~Describe \code{model} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \value{
@@ -75,12 +78,12 @@ x <- sim.data[,1]
 x <- array(x,dim=c(length(x),1))
 y <- sim.data[,-1]
 ## initialize the parameters for a 2 component mixture
-## the number of the overall small runs are t2 = 3
-## each one consisting of m2 = 5 iterations of the EM.
+## the number of the overall small runs are t2 = 2
+## each one consisting of m2 = 2 iterations of the EM.
 ## the number of the small runs for the first step small EM
-## is t1 = 3, each one consisting of m1 = 5 iterations.
+## is t1 = 2, each one consisting of m1 = 2 iterations.
 start2 <- init1.2.jk.j(reference=x, response=y, L=c(3,2,1), 
-                       K=2, m1=5, m2=5, t1=3, t2=3, model=1)
+                       K=2, m1=2, m2=2, t1=2, t2=2, model=1,mnr = 3)
 summary(start2)
 
 ############################################################
@@ -89,11 +92,11 @@ summary(start2)
 
 ## initialize the parameters for a 2 component mixture
 ## the number of the overall small runs are t2 = 3
-## each one consisting of m2 = 5 iterations of the EM.
+## each one consisting of m2 = 2 iterations of the EM.
 ## the number of the small runs for the first step small EM
-## is t1 = 2, each one consisting of m1 = 5 iterations.
+## is t1 = 2, each one consisting of m1 = 2 iterations.
 start2 <- init1.2.jk.j(reference=x, response=y, L=c(3,2,1), 
-                       K=10, m1=5, m2=5, t1=2, t2=3, model=2)
+                       K=2, m1=2, m2=2, t1=2, t2=3, model=2,mnr = 5)
 summary(start2)
 
 

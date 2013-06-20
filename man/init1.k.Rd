@@ -10,7 +10,7 @@ Initialization 1 for the \eqn{\beta_{k}} parameterization (\eqn{m=3}).
 This function is the small initialization procedure (Initialization 1) for parameterization \eqn{m=3}. The selected values are the ones that initialize the EM algorithm \code{bkmodel}.
 }
 \usage{
-init1.k(reference, response, L, K, t2, m2)
+init1.k(reference, response, L, K, t2, m2,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,6 +31,9 @@ init1.k(reference, response, L, K, t2, m2)
 }
   \item{m2}{positive integer denoting the number of iterations for each run.
 %%     ~~Describe \code{m2} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \value{
@@ -66,7 +69,7 @@ y <- sim.data[,-1]
 ## the number of the small runs are t2 = 3
 ## each one consisting of m2 = 5 iterations of the EM.
 start1 <- init1.k(reference=x, response=y, L=c(3,2,1), 
-                       K=2, m2=5, t2=3)
+                       K=2, m2=5, t2=3,mnr = 5)
 summary(start1)
 
 

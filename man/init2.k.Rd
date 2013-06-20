@@ -11,7 +11,7 @@ This function applies a random splitting small EM initialization scheme (Initial
 }
 \usage{
 init2.k(reference, response, L, K, t2, m2, previousz, previousclust, 
-        previous.alpha, previous.beta)
+        previous.alpha, previous.beta,mnr)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -44,6 +44,9 @@ init2.k(reference, response, L, K, t2, m2, previousz, previousclust,
 }
   \item{previous.beta}{numeric array of dimension \eqn{(K-1)\times T} containing the matrix of the ML estimates of the regression coefficients \eqn{\beta_{k\tau}}, \eqn{k=1,\ldots,K-1}, \eqn{\tau=1,\ldots,T}, based on the previous run of EM algorithm.
 %%     ~~Describe \code{previous.beta} here~~
+}
+  \item{mnr}{positive integer denoting the maximum number of Newton-Raphson iterations.
+%%     ~~Describe \code{mnr} here~~
 }
 }
 \value{
@@ -82,7 +85,7 @@ y <- sim.data[,-1]
 
 # At first a 2 component mixture is fitted using parameterization $m=1$.
 run.previous<-bkmodel(reference=x, response=y, L=c(3,2,1), m=100, K=2, 
-                      nr=-10*log(10), maxnr=10, m2=3, t2=3, prev.z, 
+                      nr=-10*log(10), maxnr=5, m2=3, t2=3, prev.z, 
                       prev.clust, start.type=1, prev.alpha, prev.beta)
 ## Then the estimated clusters and parameters are used to initialize a 
 ##  3 component mixture using Initialization 2. The number of different 
@@ -97,7 +100,7 @@ alpha <- array(run.previous$alpha[ml, , ], dim = c(q, nc - 1))
 beta <- array(run.previous$beta[ml, , ], dim = c(nc - 1, tau))
 clust <- run.previous$clust
 run<-init2.k(reference=x, response=y, L=c(3,2,1), K=nc, t2=3, m2=5, previousz=z, 
-             previousclust=clust, previous.alpha=alpha, previous.beta=beta)
+             previousclust=clust, previous.alpha=alpha, previous.beta=beta,mnr = 5)
 summary(run)
 # note: useR should specify larger values for m2, t2 for a complete analysis.
 }

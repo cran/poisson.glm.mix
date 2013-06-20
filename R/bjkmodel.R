@@ -73,13 +73,13 @@ previousz <- prev.z
 previousclust <- prev.clust
 previous.alpha<-prev.alpha
 previous.beta<-prev.beta
-start<-init2.jk.j(reference = x,response = y,L = conds,K = n.comp,tsplit,model = 1,msplit,previousz,previousclust,previous.alpha,previous.beta)
+start<-init2.jk.j(reference = x,response = y,L = conds,K = n.comp,tsplit,model = 1,msplit,previousz,previousclust,previous.alpha,previous.beta,mnr = maxnr)
 
 } else {
 
 print("2 step small-em with random initialization scheme")
 
-start<-init1.2.jk.j(reference = x,response = y,L = conds,K = n.comp,m1=m1,m2=m2,t1=t1,t2=t2,model = 1)
+start<-init1.2.jk.j(reference = x,response = y,L = conds,K = n.comp,m1=m1,m2=m2,t1=t1,t2=t2,model = 1,mnr = maxnr)
 
 
 }
