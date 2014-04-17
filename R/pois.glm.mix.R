@@ -67,7 +67,13 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,,],dim=c(q,nc-1,tau))#
 clust<-run$clust#
-run<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run <- tryCatch(
+{pissa <- bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)},
+error = function(pissa){
+	pissa<-bjkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=1,prev.alpha=alpha,prev.beta=beta);return(pissa)
+},
+finally = pissa
+)
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#
@@ -144,7 +150,13 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,],dim=c(q,tau))#
 clust<-run$clust#
-run<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run <- tryCatch(
+{pissa <- bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)},
+error = function(pissa){
+	pissa<-bjmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,m1,m2,t1,t2, msplit,tsplit,prev.z=z,prev.clust=clust,start.type=1,prev.alpha=alpha,prev.beta=beta);return(pissa)
+},
+finally = pissa
+)
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#
@@ -221,7 +233,14 @@ ml<-length(run$psim)/(nc-1)#
 alpha<-array(run$alpha[ml,,],dim=c(q,nc-1))#
 beta<-array(run$beta[ml,,],dim=c(nc-1,tau))#
 clust<-run$clust#
-run<-bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,tsplit,msplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)#
+run <- tryCatch(
+{pissa <- bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,tsplit,msplit,prev.z=z,prev.clust=clust,start.type=2,prev.alpha=alpha,prev.beta=beta)},
+error = function(pissa){
+	pissa <- bkmodel(reference=x,response=y,L,m=max.iter,K=nc,nr=-10*log(10),maxnr=maxnr,tsplit,msplit,prev.z=z,prev.clust=clust,start.type=1,prev.alpha=alpha,prev.beta=beta);return(pissa)
+},
+finally = pissa
+)
+
 bbs[nc,]<-c(run$bic,run$icl,run$ll)#
 runs[[nc]]<-run#
 plot(c(1,nc),c(min(bbs[1:nc,1],na.rm=T),max(bbs[1:nc,2],na.rm=T)),type="n",xlab="K",ylab="criterion")#
@@ -285,7 +304,11 @@ r.icl <- runs[[sel.mod.icl]]
 nc <- sel.mod.icl
 tem <- length(r.icl$psim)/nc
 est.sel.mod.icl <- vector("list",length=6)
-est.sel.mod.icl[[1]] <- r.icl$psim[tem,]
+if(nc == 1){
+	est.sel.mod.icl[[1]] <- 1
+}else{
+	est.sel.mod.icl[[1]] <- r.icl$psim[tem,]
+}
 est.sel.mod.icl[[2]] <- r.icl$alpha[tem,,]
 if (m==1){
 est.sel.mod.icl[[3]] <- r.icl$beta[tem,,,]}
@@ -304,7 +327,11 @@ r.bic <- runs[[sel.mod.bic]]
 nc <- sel.mod.bic
 tem <- length(r.bic$psim)/nc
 est.sel.mod.bic <- vector("list",length=6)
+if(nc == 1){
+est.sel.mod.bic[[1]] <- 1
+}else{
 est.sel.mod.bic[[1]] <- r.bic$psim[tem,]
+}
 est.sel.mod.bic[[2]] <- r.bic$alpha[tem,,]
 if (m==1){
 est.sel.mod.bic[[3]] <- r.bic$beta[tem,,,]}

@@ -1,4 +1,4 @@
-99b014d9218ec3916d6dc65c7fc26d26 *DESCRIPTION
+d640b15267f7bed5feb80038b720574c *DESCRIPTION
 df390c53434517b304ac5db487184641 *NAMESPACE
 cf40e4ddb6c50f515b3101082707084c *R/bjkmodel.R
 be985665f210c5a9760427b747a096de *R/bjmodel.R
@@ -9,7 +9,7 @@ bb52dced0a0a3644a3af953762b4fb39 *R/init1.k.R
 8ff70dd1f2191441e0a0d1ba1bb5bc05 *R/init2.jk.j.R
 4371c8f13a63bd476e2a02a130783e5c *R/init2.k.R
 60055ba1a8fddb4f8e7ee5726607c150 *R/mylogLikePoisMix.R
-b34a26d28829b5baa2a73f6003503bb5 *R/pois.glm.mix.R
+7e5efa9ffa6c21ccd8df87ceb821bcdd *R/pois.glm.mix.R
 6c55e0908609dfb32ccfac4c71d1b49a *data/simulated_data_15_components_bjk.RData
 aeada0158b618bb0c1c4849815008d24 *data/simulated_data_15_components_bjk_full.RData
 51ffe97310be2ac65d4b71a4e7ca82ee *man/bjkmodel.Rd
