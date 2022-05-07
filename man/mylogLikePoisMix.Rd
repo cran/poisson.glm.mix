@@ -1,39 +1,26 @@
 \name{mylogLikePoisMix}
 \alias{mylogLikePoisMix}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Function to compute the loglikelihood of the mixture.
-%%  ~~function to do ... ~~
 }
 \description{This function computes the observed loglikelihood given the means and the mixing proportions of each component. Instead of computing \eqn{L_{i}=\log\sum_{k=1}^{K}g_{ik}}, \eqn{i=1,\ldots,n}, where \eqn{g_{ik}:=\pi_{k}\prod_{j=1}^{J}\prod_{\ell=1}^{L_j}f(y_{ij\ell}|\mu_{ijlk;m})}, \eqn{h_{ik}:=\log g_{ik}} are computed for all \eqn{ i }. Let \eqn{h_{i}^{*}=\max\{h_{ik},k=1,\ldots,K\}}, then  \eqn{L_{i}=h_{i}^{*}+\log\sum_{k=1}^{K}\exp(h_{ik}-h^{*}_{i})}.
 }
 \usage{
 mylogLikePoisMix(y, mean, pi)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{a numeric array of count data with dimension \eqn{n\times d}.
-%%     ~~Describe \code{y} here~~
 }
   \item{mean}{a list of length K (the number of mixture components) of positive data. Each list element is a matrix with dimension \eqn{n\times d} containing \eqn{d} Poisson means for each of the \eqn{n} observations.
-%%     ~~Describe \code{mean} here~~
 }
   \item{pi}{a numeric vector of length K (the number of mixture components) containing the mixture weights.
-%%     ~~Describe \code{pi} here~~
 }
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
 \item{ll }{the value of the loglikelihood.}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \author{
-%%  ~~who you are~~
 Panagiotis Papastamoulis
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \examples{
 ## This example computes the loglikelihood of a K = 10 component 

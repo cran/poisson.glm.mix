@@ -1,12 +1,9 @@
 \name{bjkmodel}
 \alias{bjkmodel}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
 EM algorithm for the \eqn{\beta_{jk}} (m=1) Poisson GLM mixture.  
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 This function applies EM algorithm for estimating a \eqn{K}-component mixture of Poisson GLM's, using parameterization \eqn{m=1}, that is the \eqn{\beta_{jk}} model. Initialization can be done using two different intialization schemes. The first one is a two-step small EM procedure. The second  one is  a random splitting small EM procedure based on results of a mixture with less components. Output of the function is the updates of the parameters at each iteration of the EM algorithm, the estimate of \eqn{\gamma}, the estimated clusters and conditional probabilities of the observations, as well as the values of the BIC, ICL and loglikelihood of the model.
 }
 \usage{
@@ -14,70 +11,46 @@ bjkmodel(reference, response, L, m, K, nr, maxnr, m1, m2, t1, t2,
          msplit, tsplit, prev.z, prev.clust, start.type, 
          prev.alpha, prev.beta)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{reference}{
-%%     ~~Describe \code{reference} here~~
 a numeric array of dimension \eqn{n\times V} containing the \eqn{V} covariates for each of the \eqn{n} observations.
 }
   \item{response}{a numeric array of count data with dimension \eqn{n\times d} containing the \eqn{d} response variables for each of the \eqn{n} observations.
-%%     ~~Describe \code{response} here~~
 }
   \item{L}{numeric vector of positive integers containing the partition of the \eqn{d} response variables into \eqn{J\leq d} blocks, with \eqn{\sum_{j=1}^{J}L_j=d}.
-%%     ~~Describe \code{L} here~~
 }
   \item{m}{positive integer denoting the maximum number of EM iterations.
-%%     ~~Describe \code{m} here~~
 }
   \item{K}{positive integer denoting the number of mixture components.
-%%     ~~Describe \code{K} here~~
 }
   \item{nr}{negative number denoting the tolerance for the convergence of the Newton Raphson iterations.
-%%     ~~Describe \code{nr} here~~
 }
   \item{maxnr}{positive integer denoting the maximum number of Newton Raphson iterations.
-%%     ~~Describe \code{maxnr} here~~
 }
   \item{m1}{positive integer denoting the number of iterations for each call of the 1st small EM iterations used by Initialization 1 (\code{init1.1.jk.j}).
-%%     ~~Describe \code{m1} here~~
 }
   \item{m2}{positive integer denoting the number of iterations for each call of the 2nd small EM iterations used by Initialization 1 (\code{init1.2.jk.j}).
-%%     ~~Describe \code{m2} here~~
 }
   \item{t1}{positive integer denoting the number of different runs of the 1st small EM used by Initialization 1 (\code{init1.1.jk.j}).
-%%     ~~Describe \code{t1} here~~
 }
   \item{t2}{positive integer denoting the number of different runs of the 2nd small EM used by Initialization 1 (\code{init1.2.jk.j}).
-%%     ~~Describe \code{t2} here~~
 }
   \item{msplit}{positive integer denoting the number of different runs for each call of the splitting small EM used by Initialization 2 (\code{init2.jk.j}).
-%%     ~~Describe \code{msplit} here~~
 }
   \item{tsplit}{positive integer denoting the number of different runs for each call of the splitting small EM used by Initialization 2 (\code{init2.jk.j}).
-%%     ~~Describe \code{tsplit} here~~
 }
   \item{prev.z}{numeric array of dimension \eqn{n\times(K-1)} containing the estimates of the posterior probabilities according to the previous run of EM. This is used when Initialization 2 is adopted.
-%%     ~~Describe \code{prev.z} here~~
 }
   \item{prev.clust}{numeric vector of length \eqn{n} containing the estimated clusters according to the MAP rule obtained by the previous run of EM. This is used when Initialization 2 is adopted.
-%%     ~~Describe \code{prev.clust} here~~
 }
   \item{start.type}{binary variable (1 or 2) indicating the type of initialization (1 for initialization 1 and 2 for initialization 2).
-%%     ~~Describe \code{start.type} here~~
 }
   \item{prev.alpha}{numeric array of dimension \eqn{J\times (K-1)} containing the matrix of the ML estimates of the regression constants \eqn{\alpha_{jk}}, \eqn{j=1,\ldots,J}, \eqn{k=1,\ldots,K-1}, based on the previous run of EM algorithm. This is used in case of Initialization 2.
-%%     ~~Describe \code{prev.alpha} here~~
 }
   \item{prev.beta}{numeric array of dimension \eqn{J\times (K-1)\times T} containing the matrix of the ML estimates of the regression coefficients \eqn{\beta_{jk\tau}}, \eqn{j=1,\ldots,J}, \eqn{k=1,\ldots,K-1}, \eqn{\tau=1,\ldots,T}, based on the previous run of EM algorithm. This is used in case of Initialization 2.
-%%     ~~Describe \code{prev.beta} here~~
 }
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{alpha }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 \item{alpha }{numeric array of dimension \eqn{t_{EM}\times J \times K}, containing the updates of regression constants \eqn{\alpha_{jk}^{t})}, \eqn{j=1,\ldots,J}, \eqn{k=1,\ldots,K}, for each iteration \eqn{t=1,2,\ldots,t_{EM}} of the EM algorithm.}
 \item{beta }{numeric array of dimension \eqn{t_{EM}\times J \times K \times T} containing the updates of regression coefficients \eqn{\beta_{jk\tau}^{t})}, \eqn{j=1,\ldots,J}, \eqn{k=1,\ldots,K}, \eqn{\tau=1,\ldots,T}, for each iteration \eqn{t=1,2,\ldots,t_{EM}} of the EM algorithm.}
 \item{gamma }{numeric array of dimension \eqn{J \times \max(L)} containing the MLE of \eqn{\gamma_{j\ell}}, \eqn{j=1,\ldots,J}, \eqn{\ell=1,\ldots,L_j}.}
@@ -89,11 +62,9 @@ a numeric array of dimension \eqn{n\times V} containing the \eqn{V} covariates f
 \item{ll }{numeric, the value of the loglikelihood, computed according to the \code{mylogLikePoisMix} function.}
 }
 \author{
-%%  ~~who you are~~
 Panagiotis Papastamoulis
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 \code{\link{init1.1.jk.j}}, \code{\link{init1.2.jk.j}}, \code{\link{init2.jk.j}}

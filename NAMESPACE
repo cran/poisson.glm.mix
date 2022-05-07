@@ -1,1 +1,5 @@
 exportPattern("^[[:alpha:]]+")
+importFrom("grDevices", "dev.new", "dev.set")
+importFrom("graphics", "curve", "legend", "lines", "par")
+importFrom("stats", "coefficients", "dpois", "glm", "kmeans", "poisson", "rnorm", "runif")
+

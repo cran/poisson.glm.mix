@@ -18,7 +18,7 @@ Assume that the observed data can be written as \eqn{y = (y_{1},\ldots,y_{n})} w
 Maintainer: Papastamoulis Panagiotis <papapast@yahoo.gr>
 }
 \references{
-Papastamoulis, P., Martin-Magniette, M.L., and Maugis-Rabusseau, C. (2012). Efficient estimation of high dimensional mixtures of Poisson Generalized Linear Models via the EM algorithm.
+Papastamoulis, P., Martin-Magniette, M. L., & Maugis-Rabusseau, C. (2016). On the estimation of mixtures of Poisson regression models with large number of components. Computational Statistics & Data Analysis, 93, 97-106.
 }
 \keyword{ package }
 \examples{
