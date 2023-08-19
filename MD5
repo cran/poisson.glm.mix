@@ -1,4 +1,4 @@
-dbf3a20c0bc2a1d0b43f02ba5592fec0 *DESCRIPTION
+3ad9f82ab8ceb6302dcba703106859b1 *DESCRIPTION
 1a38460d2518951bb794ac7aa8b5baed *NAMESPACE
 cf40e4ddb6c50f515b3101082707084c *R/bjkmodel.R
 be985665f210c5a9760427b747a096de *R/bjmodel.R
@@ -22,5 +22,5 @@ e7710d499d1c3ce88bb5be8d4a113676 *man/init2.jk.j.Rd
 0af1cddb48b89cb5e3eda6bc11a1509a *man/init2.k.Rd
 78fbf2d533e252c35298b941111d1696 *man/mylogLikePoisMix.Rd
 0fd79d147d5db53b5ce1e2a11106ad38 *man/pois.glm.mix.Rd
-0dba5bdf13547625da9067a3e38a0968 *man/poisson.glm.mix.Rd
+c5362e071d73d341ede52ce298949bb5 *man/poisson.glm.mix.Rd
 63e58c170607c169682a2b4c1d886c65 *man/sim.data.Rd

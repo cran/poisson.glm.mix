@@ -1,7 +1,8 @@
 \name{poisson.glm.mix}
 \alias{poisson.glm.mix}
+\alias{poisson.glm.mix-package}
 \docType{package}
-\title{Estimation of high dimensional Poisson GLM's via EM algorithm.}
+\title{Estimation of high dimensional Poisson GLMs via EM algorithm.}
 \description{
 This package can be used to cluster high dimensional count data under the presence of covariates. A mixture of Poisson Generalized Linear models (GLM's) is proposed. Conditionally to the covariates, Poisson multivariate distribution describing each cluster is a product of independent Poisson distributions. Different parameterizations for the slopes are proposed. Case of partioning the response variables into a set of replicates is considered. Poisson GLM mixture is estimated via Expectation Maximization (EM) algorithm with Newton-Raphson steps. An efficient initialization of EM algorithm is proposed to improve parameter estimation. It is a splitting scheme which is combined with a Small EM strategy. The user is referred to the function \code{\link{pois.glm.mix}} for an automatic evaluation of the proposed methodology.
 }
@@ -9,9 +10,8 @@ This package can be used to cluster high dimensional count data under the presen
 \tabular{ll}{
 Package: \tab poisson.glm.mix\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2012-07-17\cr
-License: \tab What license is it under?\cr}
+Version: \tab 1.4\cr
+Date: \tab 2023-08-19\cr}
 
 Assume that the observed data can be written as \eqn{y = (y_{1},\ldots,y_{n})} where \eqn{y_i=\{y_{ij\ell};j = 1, \ldots,J,\ell = 1, \ldots,L_{j}\}}, \eqn{y_i\in Z_+^{d}}, \eqn{i = 1,\ldots,n}, with \eqn{d = \sum_{j=1}^{J}L_{j}} and \eqn{L_j \geq 1}, \eqn{j=1,\ldots,J}. Index \eqn{i} denotes the observation, while the vector \eqn{L=(L_1,\ldots,L_J)} defines a partition of the \eqn{d} variables into \eqn{J} blocks: the first block consists of the first \eqn{L_1} variables, the second block consists of the next \eqn{L_2} variables and so on. We will refer to \eqn{j} and \eqn{\ell} using the terms ``condition'' and ``replicate'', respectively. In addition to \eqn{y}, consider that a vector of \eqn{V} covariates is observed, denoted by \eqn{x_{i} := \{x_{iv};v=1,\ldots,V\}}, for all \eqn{i = 1, \ldots,n}.  Assume now that conditional to \eqn{x_{i}}, a model indicator \eqn{m} taking values in the  discrete set \eqn{\{1,2,3\}} and a positive integer \eqn{K}, the response \eqn{y_{i}}, is a realization of the corresponding random vector \deqn{Y_{i}|x_{i}, m\sim \sum_{k = 1}^{K}\pi_{k}\prod_{j=1}^{J}\prod_{\ell=1}^{L_{j}}\mathcal P(\mu_{ij\ell k;m})} where \eqn{\mathcal P} denotes the Poisson distribution. The following parameterizations for the Poisson means \eqn{\mu_{ij\ell k;m}} are considered: If \eqn{m=1} (the ``\eqn{\beta_{jk}}'' parameterization), then \deqn{\mu_{ij\ell k;m}:=\alpha_{jk}+\gamma_{j\ell}+\sum_{v=1}^{V}\beta_{jkv}x_i.} If \eqn{m=2} (the ``\eqn{\beta_{j}}'' parameterization), then \deqn{\mu_{ij\ell k;m}:=\alpha_{jk}+\gamma_{j\ell}+\sum_{v=1}^{V}\beta_{jv}x_i.} If \eqn{m=3} (the ``\eqn{\beta_{k}}'' parameterization), then \deqn{\mu_{ij\ell k;m}:=\alpha_{jk}+\gamma_{j\ell}+\sum_{v=1}^{V}\beta_{kv}x_i.} For identifiability purposes assume that \eqn{\sum_{\ell=1}^{L_j}\gamma_{j\ell}=0}, \eqn{j=1,\ldots,J}.}
 \author{Papastamoulis Panagiotis
